@@ -1,0 +1,25 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@lib/common/(.*)": "<rootDir>/../libs/common/src/$1",
+    "@lib/common": "<rootDir>/../libs/common/src",
+    "@lib/token/(.*)": "<rootDir>/../libs/token/src/$1",
+    "@lib/token": "<rootDir>/../libs/token/src",
+    "@lib/redis/(.*)": "<rootDir>/../libs/redis/src/$1",
+    "@lib/redis": "<rootDir>/../libs/redis/src",
+    "@lib/detect/(.*)": "<rootDir>/../libs/detect/src/$1",
+    "@lib/detect": "<rootDir>/../libs/detect/src",
+    "@lib/http-client/(.*)": "<rootDir>/../libs/http-client/src/$1",
+    "@lib/http-client": "<rootDir>/../libs/http-client/src"
+  }
+}

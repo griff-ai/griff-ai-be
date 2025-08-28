@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@lib/common": [
+        "libs/common/src"
+      ],
+      "@lib/common/*": [
+        "libs/common/src/*"
+      ],
+      "@lib/token": [
+        "libs/token/src"
+      ],
+      "@lib/token/*": [
+        "libs/token/src/*"
+      ],
+      "@lib/redis": [
+        "libs/redis/src"
+      ],
+      "@lib/redis/*": [
+        "libs/redis/src/*"
+      ],
+      "@lib/detect": [
+        "libs/detect/src"
+      ],
+      "@lib/detect/*": [
+        "libs/detect/src/*"
+      ],
+      "@lib/http-client": [
+        "libs/http-client/src"
+      ],
+      "@lib/http-client/*": [
+        "libs/http-client/src/*"
+      ]
+    }
+  }
+}

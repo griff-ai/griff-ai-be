@@ -1,0 +1,47 @@
+1. Install Postgres
+
+  sudo apt install postgresql postgresql-contrib
+  sudo systemctl start postgresql
+  sudo systemctl enable postgresql
+
+  sudo -i -u postgres
+  psql
+  CREATE USER griff_finance WITH PASSWORD 'griff_finance';
+  CREATE DATABASE griff_finance OWNER griff_finance;
+  GRANT ALL PRIVILEGES ON DATABASE griff_finance TO griff_finance;
+
+
+2. Install nvm
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+  source ~/.bashrc
+
+
+3. Install redis
+
+  sudo apt update
+  sudo apt install redis-server -y
+
+
+  sudo systemctl enable redis-server
+  sudo systemctl start redis-server
+
+
+  redis-cli ping
+
+2. Open CV and
+
+  sudo apt install python3-opencv
+
+  sudo apt install tesseract-ocr
+
+  sudo apt install python3-venv
+  python3 -m venv myenv
+  source myenv/bin/activate
+  pip install opencv-python-headless
+  pip install pytesseract Pillow
+
+
+  verify:
+  python -c "import cv2; print(cv2.__version__)"
+  python -c "import pytesseract; print(pytesseract.get_tesseract_version())"
+

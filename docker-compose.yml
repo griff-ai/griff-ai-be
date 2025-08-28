@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - db_griff_finance_data:/var/lib/postgresql/data
+    command: postgres -c 'max_connections=400'
+    restart: always
+    ports:
+      - 5439:5432
+    environment:
+      POSTGRES_PASSWORD: "griff_finance"
+      POSTGRES_DB: "griff_finance"
+      POSTGRES_USER: "griff_finance"
+    networks:
+      - griff_finance_server
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - ${REDIS_PORT:-6379}:${REDIS_PORT:-6379}
+    command: --port ${REDIS_PORT:-6379}
+    restart: unless-stopped
+    networks:
+      - griff_finance_server
+networks:
+  griff_finance_server:
+volumes:
+  db_griff_finance_data:
+  redis_data:
+  node_modules:

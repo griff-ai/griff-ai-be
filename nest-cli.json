@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "webpack": true,
+    "assets": [
+      "../../../scripts"
+    ],
+    "watchAssets": true
+  },
+  "projects": {
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "token": {
+      "type": "library",
+      "root": "libs/token",
+      "entryFile": "index",
+      "sourceRoot": "libs/token/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/token/tsconfig.lib.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    },
+    "detect": {
+      "type": "library",
+      "root": "libs/detect",
+      "entryFile": "index",
+      "sourceRoot": "libs/detect/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/detect/tsconfig.lib.json"
+      }
+    },
+    "http-client": {
+      "type": "library",
+      "root": "libs/http-client",
+      "entryFile": "index",
+      "sourceRoot": "libs/http-client/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/http-client/tsconfig.lib.json"
+      }
+    }
+  }
+}
