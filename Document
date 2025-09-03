@@ -1,0 +1,72 @@
+1. Overview
+- Request:
+
+- Response:
+  {
+    "total_holdings_value": 2614.79,
+    "total_cost": 2799.0,
+    "past_holdings_value": 2634.4900000000002,
+    "holdings_change": -19.7,
+    "holdings_change_percentage": -0.75,
+    "profit_loss": -184.21,
+    "has_inactive_coins": false,
+    "profit_loss_change_percentage": -6.58,
+    "top_gainer_page_url": null,
+    "top_gainer_image_url": "https://assets.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400",
+    "top_gainer_name": "Bitcoin",
+    "top_gainer_symbol": "BTC",
+    "top_gainer_profit_loss": -4.18886984703272,
+    "portfolio_coins": [
+      {
+        "profit_loss": -4.18886984703272,
+        "profit_loss_change": -0.47,
+        "total_holdings": 0.00808,
+        "total_cost": 898.9999999999995,
+        "total_market_value": 894.8111301529668,
+        "average_net_cost": 111262.3762376237,
+        "portfolio_coin_id": 172012589,
+        "coin_id": 1,
+        "coin_symbol": "BTC",
+        "coin_slug": "bitcoin"
+      },
+      {
+        "profit_loss": -48.56188731803081,
+        "profit_loss_change": -4.41,
+        "total_holdings": 0.2439,
+        "total_cost": 1100.0,
+        "total_market_value": 1051.4381126819692,
+        "average_net_cost": 4510.045100451004,
+        "portfolio_coin_id": 172012944,
+        "coin_id": 279,
+        "coin_symbol": "ETH",
+        "coin_slug": "ethereum"
+      },
+      {
+        "profit_loss": -131.4648676804802,
+        "profit_loss_change": -16.43,
+        "total_holdings": 79.712,
+        "total_cost": 799.9999999999997,
+        "total_market_value": 668.5351323195194,
+        "average_net_cost": 10.03613006824568,
+        "portfolio_coin_id": 172013191,
+        "coin_id": 53746,
+        "coin_symbol": "TRUMP",
+        "coin_slug": "official-trump"
+      }
+    ]
+  }
+
+2. Add coin
+- Request add:
+{
+  "portfolio_coin_transaction": {
+    "coin_id": 10365,
+    "fees": 0,
+    "transaction_timestamp": "2025-09-03T07:05:45.000Z",
+    "notes": "",
+    "currency": "usd",
+    "quantity": 3434,
+    "price": 1.6470588235294117,
+    "transaction_type": "buy"
+  }
+}
