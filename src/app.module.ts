@@ -10,6 +10,10 @@ import { MediaModule } from './media/media.module'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
 import { UserModule } from './user/user.module'
+import { CoinsModule } from './coins/coins.module'
+import { TransactionsModule } from './transactions/transactions.module'
+import { PortfolioCoinsModule } from './portfolio-coins/portfolio-coins.module'
+import { PortfoliosModule } from './portfolios/portfolios.module'
 
 @Module({
   imports: [
@@ -28,6 +32,10 @@ import { UserModule } from './user/user.module'
     AuthModule,
     MediaModule,
     UserModule,
+    CoinsModule,
+    TransactionsModule,
+    PortfolioCoinsModule,
+    PortfoliosModule,
   ],
   providers: [],
 })

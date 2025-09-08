@@ -1,0 +1,769 @@
+{
+  "info": {
+    "name": "Griff AI Backend - CoinGecko API",
+    "description": "Complete API collection for cryptocurrency portfolio management system",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3007",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"your-refresh-token\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/refresh-token",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "refresh-token"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/get-profile",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "get-profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullname\": \"Updated Name\",\n  \"email\": \"updated@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/update-profile",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "update-profile"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Coins",
+      "item": [
+        {
+          "name": "List Coins",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/coins?page=1&limit=10&symbol=BTC&name=Bitcoin",
+              "host": ["{{base_url}}"],
+              "path": ["coins"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "symbol",
+                  "value": "BTC"
+                },
+                {
+                  "key": "name",
+                  "value": "Bitcoin"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Coin by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/coins/1",
+              "host": ["{{base_url}}"],
+              "path": ["coins", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Coin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"symbol\": \"BTC\",\n  \"name\": \"Bitcoin\",\n  \"slug\": \"bitcoin\",\n  \"imageUrl\": \"https://assets.coingecko.com/coins/images/1/standard/bitcoin.png\",\n  \"currentPrice\": \"45000.50\",\n  \"marketCap\": \"850000000000.00\",\n  \"marketCapRank\": 1,\n  \"totalVolume\": \"25000000000.00\",\n  \"circulatingSupply\": \"19500000.00\",\n  \"totalSupply\": \"21000000.00\",\n  \"maxSupply\": \"21000000.00\",\n  \"priceChange24h\": \"1250.75\",\n  \"priceChangePercentage24h\": \"2.85\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/coins",
+              "host": ["{{base_url}}"],
+              "path": ["coins"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Coin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPrice\": \"46000.00\",\n  \"marketCap\": \"855000000000.00\",\n  \"priceChange24h\": \"2250.75\",\n  \"priceChangePercentage24h\": \"5.12\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/coins/1",
+              "host": ["{{base_url}}"],
+              "path": ["coins", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Coin",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/coins/1",
+              "host": ["{{base_url}}"],
+              "path": ["coins", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "List Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions?page=1&limit=10&transactionType=buy&dateFrom=2025-01-01&dateTo=2025-12-31",
+              "host": ["{{base_url}}"],
+              "path": ["transactions"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "transactionType",
+                  "value": "buy"
+                },
+                {
+                  "key": "dateFrom",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "dateTo",
+                  "value": "2025-12-31"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/115475969",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "115475969"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 115475969,\n  \"fees\": \"0.0\",\n  \"price\": \"4664.179104477612\",\n  \"proceeds\": \"0.0\",\n  \"cost\": \"500.0000000000000064\",\n  \"transactionType\": \"buy\",\n  \"profitLoss\": \"-35.859221593251604\",\n  \"quantity\": \"0.107258\",\n  \"currency\": \"usd\",\n  \"transactionTimestamp\": \"2025-09-03T07:05:45.000Z\",\n  \"notes\": \"Bitcoin purchase\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions",
+              "host": ["{{base_url}}"],
+              "path": ["transactions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"profitLoss\": \"-30.50\",\n  \"notes\": \"Updated profit/loss calculation\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/115475969",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "115475969"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Transaction",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/115475969",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "115475969"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Portfolio Coins",
+      "item": [
+        {
+          "name": "List Portfolio Coins",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/portfolio-coins?page=1&limit=10&coinId=1",
+              "host": ["{{base_url}}"],
+              "path": ["portfolio-coins"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "coinId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Portfolio Coin by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/portfolio-coins/172012589",
+              "host": ["{{base_url}}"],
+              "path": ["portfolio-coins", "172012589"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Portfolio Coin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 172012589,\n  \"coinId\": 1,\n  \"profitLoss\": \"-4.18886984703272\",\n  \"profitLossChange\": \"-0.47\",\n  \"totalHoldings\": \"0.00808\",\n  \"totalCost\": \"898.9999999999995\",\n  \"totalMarketValue\": \"894.8111301529668\",\n  \"averageNetCost\": \"111262.3762376237\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/portfolio-coins",
+              "host": ["{{base_url}}"],
+              "path": ["portfolio-coins"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Portfolio Coin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"profitLoss\": \"-3.50\",\n  \"profitLossChange\": \"-0.35\",\n  \"totalMarketValue\": \"895.50\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/portfolio-coins/172012589",
+              "host": ["{{base_url}}"],
+              "path": ["portfolio-coins", "172012589"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Portfolio Coin",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/portfolio-coins/172012589",
+              "host": ["{{base_url}}"],
+              "path": ["portfolio-coins", "172012589"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Portfolios",
+      "item": [
+        {
+          "name": "List Portfolios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/portfolios?page=1&limit=10&userId={{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["portfolios"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "userId",
+                  "value": "{{user_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Portfolio Overview",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/portfolios/overview/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["portfolios", "overview", "{{user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Portfolio by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/portfolios/1",
+              "host": ["{{base_url}}"],
+              "path": ["portfolios", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Portfolio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": {{user_id}},\n  \"name\": \"My Crypto Portfolio\",\n  \"totalHoldingsValue\": \"2614.79\",\n  \"totalCost\": \"2799.0\",\n  \"pastHoldingsValue\": \"2634.4900000000002\",\n  \"holdingsChange\": \"-19.7\",\n  \"holdingsChangePercentage\": \"-0.75\",\n  \"profitLoss\": \"-184.21\",\n  \"profitLossChangePercentage\": \"-6.58\",\n  \"hasInactiveCoins\": false,\n  \"topGainerPageUrl\": null,\n  \"topGainerImageUrl\": \"https://assets.coingecko.com/coins/images/1/standard/bitcoin.png\",\n  \"topGainerName\": \"Bitcoin\",\n  \"topGainerSymbol\": \"BTC\",\n  \"topGainerProfitLoss\": \"-4.18886984703272\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/portfolios",
+              "host": ["{{base_url}}"],
+              "path": ["portfolios"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Portfolio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"totalHoldingsValue\": \"2650.00\",\n  \"profitLoss\": \"-149.00\",\n  \"profitLossChangePercentage\": \"-5.32\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/portfolios/1",
+              "host": ["{{base_url}}"],
+              "path": ["portfolios", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Portfolio",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/portfolios/1",
+              "host": ["{{base_url}}"],
+              "path": ["portfolios", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["user"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["user", "{{user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"newuser\",\n  \"fullname\": \"New User\",\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"+1234567890\",\n  \"birthday\": \"1990-01-01\",\n  \"role\": 1,\n  \"status\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user",
+              "host": ["{{base_url}}"],
+              "path": ["user"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Media",
+      "item": [
+        {
+          "name": "Upload File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/media/upload",
+              "host": ["{{base_url}}"],
+              "path": ["media", "upload"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "// Set default headers",
+          "pm.request.headers.add({",
+          "    key: 'Accept',",
+          "    value: 'application/json'",
+          "});"
+        ],
+        "type": "text/javascript"
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "exec": [
+          "// Extract access token from login response",
+          "if (pm.request.url.toString().includes('/auth/login')) {",
+          "    if (pm.response.code === 200) {",
+          "        const responseData = pm.response.json();",
+          "        if (responseData.data && responseData.data.accessToken) {",
+          "            pm.collectionVariables.set('access_token', responseData.data.accessToken);",
+          "            console.log('Access token saved:', responseData.data.accessToken);",
+          "        }",
+          "    }",
+          "}",
+          "",
+          "// Log response for debugging",
+          "console.log('Response Status:', pm.response.code);",
+          "console.log('Response Body:', pm.response.text());"
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ]
+}

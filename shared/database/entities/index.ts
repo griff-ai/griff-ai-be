@@ -1,1 +1,5 @@
 export * from './user.entity'
+export * from './coin.entity'
+export * from './transaction.entity'
+export * from './portfolio-coin.entity'
+export * from './portfolio.entity'
