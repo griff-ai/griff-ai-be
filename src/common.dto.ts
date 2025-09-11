@@ -9,6 +9,7 @@ export class ListCommonRequestDto {
     required: false,
   })
   @IsOptional()
+  @Expose({ name: 'page' })
   page?: number
 
   @ApiProperty({
@@ -17,6 +18,7 @@ export class ListCommonRequestDto {
     required: false,
   })
   @IsOptional()
+  @Expose({ name: 'limit' })
   limit?: number
 
   @ApiProperty({ name: 'search_field', required: false })

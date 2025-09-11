@@ -89,21 +89,6 @@ export class CreatePortfolioCoinsTable1757331403734
             onDelete: 'CASCADE',
           },
         ],
-        indices: [
-          {
-            name: 'idx_portfolio_coins_user_id',
-            columnNames: ['user_id'],
-          },
-          {
-            name: 'idx_portfolio_coins_coin_id',
-            columnNames: ['coin_id'],
-          },
-          {
-            name: 'idx_portfolio_coins_user_coin',
-            columnNames: ['user_id', 'coin_id'],
-            isUnique: true,
-          },
-        ],
       }),
       true,
     )

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { TransactionEntity } from 'shared/database/entities/transaction.entity'
 import { Repository, Between } from 'typeorm'
+import * as crypto from 'crypto'
 
 import {
   DEFAULT_PAGINATE_LIMIT,
@@ -9,7 +10,11 @@ import {
   ThrowError,
 } from '@lib/common'
 import { plainToInstance } from 'class-transformer'
-import { CreateTransactionDto, ListTransactionsRequestDto, UpdateTransactionDto } from './transactions.dto'
+import {
+  CreateTransactionDto,
+  ListTransactionsRequestDto,
+  UpdateTransactionDto,
+} from './transactions.dto'
 
 @Injectable()
 export class TransactionsService {
@@ -18,21 +23,47 @@ export class TransactionsService {
     protected readonly transactionRepository: Repository<TransactionEntity>,
   ) {}
 
+  private generateTransactionHash(
+    userId: number,
+    coinId: number,
+    transactionType: string,
+    quantity: string,
+    price: string,
+    timestamp: string,
+  ): string {
+    const data = `${userId}-${coinId}-${transactionType}-${quantity}-${price}-${timestamp}-${Date.now()}`
+    return crypto.createHash('sha256').update(data).digest('hex')
+  }
+
   async create(request: CreateTransactionDto, userId: number) {
-    const transaction = await this.transactionRepository.findOne({
-      where: { id: request.id },
+    const transactionHash = this.generateTransactionHash(
+      userId,
+      request.coinId,
+      request.transactionType,
+      request.quantity,
+      request.price,
+      request.transactionTimestamp,
+    )
+
+    const existingTransaction = await this.transactionRepository.findOne({
+      where: { transactionHash },
     })
 
-    if (transaction) {
-      ThrowError('Transaction already exists')
+    if (existingTransaction) {
+      ThrowError('Transaction with this hash already exists')
     }
 
-    const newTransaction = plainToInstance(TransactionEntity, {
-      ...request,
-      userId,
-    }, {
-      ignoreDecorators: true,
-    })
+    const newTransaction = plainToInstance(
+      TransactionEntity,
+      {
+        ...request,
+        userId,
+        transactionHash,
+      },
+      {
+        ignoreDecorators: true,
+      },
+    )
     return this.transactionRepository.save(newTransaction)
   }
 
@@ -52,6 +83,7 @@ export class TransactionsService {
   async findOne(id: string, userId: number) {
     const transaction = await this.transactionRepository.findOne({
       where: { id: parseInt(id), userId },
+      relations: ['coin'],
     })
 
     if (!transaction) {
@@ -60,7 +92,10 @@ export class TransactionsService {
     return transaction
   }
 
-  async list(listTransactionsRequestDto: ListTransactionsRequestDto, userId: number) {
+  async list(
+    listTransactionsRequestDto: ListTransactionsRequestDto,
+    userId: number,
+  ) {
     const query: Record<string, any> = { userId }
     const {
       page,
@@ -68,10 +103,20 @@ export class TransactionsService {
       transactionType,
       dateFrom,
       dateTo,
+      coinId,
+      transactionHash,
     } = listTransactionsRequestDto
 
     if (transactionType) {
       query['transactionType'] = transactionType
+    }
+
+    if (coinId) {
+      query['coinId'] = coinId
+    }
+
+    if (transactionHash) {
+      query['transactionHash'] = transactionHash
     }
 
     if (dateFrom || dateTo) {
@@ -91,6 +136,7 @@ export class TransactionsService {
       order,
       skip: (+pageQuery - 1) * takeQuery,
       take: +takeQuery,
+      relations: ['coin'],
     })
 
     return {
@@ -115,13 +161,52 @@ export class TransactionsService {
   }
 
   async bulkCreate(transactions: CreateTransactionDto[], userId: number) {
-    const newTransactions = transactions.map(transaction => 
-      plainToInstance(TransactionEntity, {
-        ...transaction,
+    const transactionsWithHashes = transactions.map((transaction) => {
+      const transactionHash = this.generateTransactionHash(
         userId,
-      }, {
-        ignoreDecorators: true,
-      })
+        transaction.coinId,
+        transaction.transactionType,
+        transaction.quantity,
+        transaction.price,
+        transaction.transactionTimestamp,
+      )
+
+      return { transaction, transactionHash }
+    })
+
+    const existingHashes = await this.transactionRepository.find({
+      where: transactionsWithHashes.map(({ transactionHash }) => ({
+        transactionHash,
+      })),
+      select: ['transactionHash'],
+    })
+
+    const existingHashSet = new Set(
+      existingHashes.map((tx) => tx.transactionHash),
+    )
+    const duplicateHashes = transactionsWithHashes.filter(
+      ({ transactionHash }) => existingHashSet.has(transactionHash),
+    )
+
+    if (duplicateHashes.length > 0) {
+      ThrowError(
+        `${duplicateHashes.length} transactions with existing hashes found`,
+      )
+    }
+
+    const newTransactions = transactionsWithHashes.map(
+      ({ transaction, transactionHash }) =>
+        plainToInstance(
+          TransactionEntity,
+          {
+            ...transaction,
+            userId,
+            transactionHash,
+          },
+          {
+            ignoreDecorators: true,
+          },
+        ),
     )
     return this.transactionRepository.save(newTransactions)
   }

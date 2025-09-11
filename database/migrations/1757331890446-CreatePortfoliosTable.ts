@@ -128,12 +128,6 @@ export class CreatePortfoliosTable1757331890446 implements MigrationInterface {
             onDelete: 'CASCADE',
           },
         ],
-        indices: [
-          {
-            name: 'idx_portfolios_user_id',
-            columnNames: ['user_id'],
-          },
-        ],
       }),
       true,
     )

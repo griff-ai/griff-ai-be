@@ -12,9 +12,15 @@ export class CreateTransactionsTable1757328876996
             name: 'id',
             type: 'bigint',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'user_id',
+            type: 'bigint',
+          },
+          {
+            name: 'coin_id',
             type: 'bigint',
           },
           {
@@ -76,6 +82,12 @@ export class CreateTransactionsTable1757328876996
             isNullable: true,
           },
           {
+            name: 'transaction_hash',
+            type: 'varchar',
+            length: '64',
+            isUnique: true,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',
@@ -94,15 +106,11 @@ export class CreateTransactionsTable1757328876996
             referencedColumnNames: ['id'],
             onDelete: 'CASCADE',
           },
-        ],
-        indices: [
           {
-            name: 'idx_transactions_user_id',
-            columnNames: ['user_id'],
-          },
-          {
-            name: 'idx_transactions_type',
-            columnNames: ['transaction_type'],
+            columnNames: ['coin_id'],
+            referencedTableName: 'coins',
+            referencedColumnNames: ['id'],
+            onDelete: 'CASCADE',
           },
         ],
       }),

@@ -237,7 +237,6 @@ export class AuthService {
 
     user.fullname = updateProfileDto.fullname || user.fullname
     user.birthday = updateProfileDto.birthday || user.birthday
-    user.phone = updateProfileDto.phone || user.phone
     user.avatar = updateProfileDto.avatar || user.avatar
     user.updatedAt = currentMilliTime()
     const resultUser = await this.userRepository.save(user)

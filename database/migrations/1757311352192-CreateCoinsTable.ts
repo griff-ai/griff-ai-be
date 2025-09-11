@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateCoinsTable1757331352192 implements MigrationInterface {
+export class CreateCoinsTable1757311352192 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -10,6 +10,8 @@ export class CreateCoinsTable1757331352192 implements MigrationInterface {
             name: 'id',
             type: 'bigint',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'symbol',
@@ -108,17 +110,6 @@ export class CreateCoinsTable1757331352192 implements MigrationInterface {
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',
             onUpdate: 'CURRENT_TIMESTAMP',
-          },
-        ],
-        indices: [
-          {
-            name: 'idx_coins_symbol',
-            columnNames: ['symbol'],
-          },
-          {
-            name: 'idx_coins_slug',
-            columnNames: ['slug'],
-            isUnique: true,
           },
         ],
       }),

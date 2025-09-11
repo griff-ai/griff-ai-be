@@ -1,10 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Expose } from 'class-transformer'
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm'
+import { TransactionType } from 'src/transactions/transactions.dto'
+import { CoinEntity } from './coin.entity'
 
 @Entity('transactions')
 export class TransactionEntity {
-  @PrimaryColumn('bigint', { name: 'id' })
+  @PrimaryGeneratedColumn('increment', { name: 'id', type: 'bigint' })
   @ApiProperty()
   @Expose()
   id: number
@@ -14,71 +22,80 @@ export class TransactionEntity {
   @Expose()
   userId: number
 
-  @Column('numeric', { 
-    name: 'fees', 
-    precision: 20, 
-    scale: 10, 
-    default: '0.0' 
+  @Column('bigint', { name: 'coin_id' })
+  @ApiProperty()
+  @Expose()
+  coinId: number
+
+  @ManyToOne(() => CoinEntity)
+  @JoinColumn({ name: 'coin_id' })
+  coin: CoinEntity
+
+  @Column('numeric', {
+    name: 'fees',
+    precision: 20,
+    scale: 10,
+    default: '0.0',
   })
   @ApiProperty()
   @Expose()
   fees: string
 
-  @Column('numeric', { 
-    name: 'price', 
-    precision: 20, 
-    scale: 10 
+  @Column('numeric', {
+    name: 'price',
+    precision: 20,
+    scale: 10,
   })
   @ApiProperty()
   @Expose()
   price: string
 
-  @Column('numeric', { 
-    name: 'proceeds', 
-    precision: 20, 
-    scale: 10, 
-    default: '0.0' 
+  @Column('numeric', {
+    name: 'proceeds',
+    precision: 20,
+    scale: 10,
+    default: '0.0',
   })
   @ApiProperty()
   @Expose()
   proceeds: string
 
-  @Column('numeric', { 
-    name: 'cost', 
-    precision: 20, 
-    scale: 10 
+  @Column('numeric', {
+    name: 'cost',
+    precision: 20,
+    scale: 10,
   })
   @ApiProperty()
   @Expose()
   cost: string
 
   @Column('varchar', { name: 'transaction_type', length: 10 })
-  @ApiProperty()
+  @ApiProperty({ enum: TransactionType })
   @Expose()
-  transactionType: string
+  transactionType: TransactionType
 
-  @Column('numeric', { 
-    name: 'profit_loss', 
-    precision: 20, 
-    scale: 10 
+  @Column('numeric', {
+    name: 'profit_loss',
+    precision: 20,
+    scale: 10,
   })
   @ApiProperty()
   @Expose()
   profitLoss: string
 
-  @Column('numeric', { 
-    name: 'quantity', 
-    precision: 20, 
-    scale: 10 
+  @Column('numeric', {
+    name: 'quantity',
+    precision: 20,
+    scale: 10,
   })
   @ApiProperty()
   @Expose()
   quantity: string
 
-  @Column('varchar', { 
-    name: 'currency', 
-    length: 10, 
-    default: "'usd'" 
+  @Column('varchar', {
+    name: 'currency',
+    length: 10,
+    default: "'usd'",
   })
   @ApiProperty()
   @Expose()
@@ -94,15 +111,23 @@ export class TransactionEntity {
   @Expose()
   notes: string
 
-  @Column('timestamp', { name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
+  @Column('varchar', { name: 'transaction_hash', length: 64, unique: true })
+  @ApiProperty()
+  @Expose()
+  transactionHash: string
+
+  @Column('timestamp', {
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   @ApiProperty()
   @Expose()
   createdAt: Date
 
-  @Column('timestamp', { 
-    name: 'updated_at', 
+  @Column('timestamp', {
+    name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP'
+    onUpdate: 'CURRENT_TIMESTAMP',
   })
   @ApiProperty()
   @Expose()

@@ -7,57 +7,57 @@ export class CreateUserDto {
   @ApiProperty({
     description: 'Username of the user',
   })
-  @Expose()
+  @Expose({ name: 'username' })
   username: string
 
   @ApiProperty({
     description: 'Fullname of the user',
   })
-  @Expose()
+  @Expose({ name: 'fullname' })
   fullname: string
 
   @ApiProperty({
     description: 'Email of the user',
   })
-  @Expose()
+  @Expose({ name: 'email' })
   email: string
 
   @ApiProperty({
     description: 'birthday of the user',
   })
-  @Expose()
+  @Expose({ name: 'birthday' })
   birthday: string
 
   @ApiProperty({
     description: 'Phone of the user',
   })
-  @Expose()
+  @Expose({ name: 'phone' })
   @IsOptional()
   phone: string
 
   @ApiProperty({
     description: 'CCCD of the user',
   })
-  @Expose()
+  @Expose({ name: 'cccd' })
   @IsOptional()
   cccd: string
 
   @ApiProperty({
     description: 'password of the user',
   })
-  @Expose()
+  @Expose({ name: 'password' })
   password: string
 
   @ApiProperty()
-  @Expose()
+  @Expose({ name: 'avatar' })
   avatar: string
 
   @ApiProperty()
-  @Expose()
+  @Expose({ name: 'role' })
   role: number
 
   @ApiProperty()
-  @Expose()
+  @Expose({ name: 'status' })
   status: number
 
   @ApiProperty({ name: 'provider_id', required: false })
@@ -73,56 +73,56 @@ export class UpdateUserDto {
   @ApiProperty({
     description: 'Fullname of the user',
   })
-  @Expose()
+  @Expose({ name: 'fullname' })
   @IsOptional()
   fullname: string
 
   @ApiProperty({
     description: 'Email of the user',
   })
-  @Expose()
+  @Expose({ name: 'email' })
   @IsOptional()
   email: string
 
   @ApiProperty({
     description: 'password of the user',
   })
-  @Expose()
+  @Expose({ name: 'password' })
   password: string
 
   @ApiProperty({
     description: 'birthday of the user',
   })
-  @Expose()
+  @Expose({ name: 'birthday' })
   @IsOptional()
   birthday: string
 
   @ApiProperty({
     description: 'Phone of the user',
   })
-  @Expose()
+  @Expose({ name: 'phone' })
   @IsOptional()
   phone: string
 
   @ApiProperty({
     description: 'CCCD of the user',
   })
-  @Expose()
+  @Expose({ name: 'cccd' })
   @IsOptional()
   cccd: string
 
   @ApiProperty()
-  @Expose()
+  @Expose({ name: 'avatar' })
   @IsOptional()
   avatar: string
 
   @ApiProperty()
-  @Expose()
+  @Expose({ name: 'role' })
   @IsOptional()
   role: number
 
   @ApiProperty()
-  @Expose()
+  @Expose({ name: 'status' })
   @IsOptional()
   status: number
 
@@ -140,52 +140,52 @@ export class ListUserRequestDto extends ListCommonRequestDto {
   @ApiProperty({
     description: 'Username of the user',
   })
-  @Expose()
+  @Expose({ name: 'username' })
   @IsOptional()
   username: string
 
   @ApiProperty({
     description: 'Fullname of the user',
   })
-  @Expose()
+  @Expose({ name: 'fullname' })
   @IsOptional()
   fullname: string
 
   @ApiProperty({
     description: 'Email of the user',
   })
-  @Expose()
+  @Expose({ name: 'email' })
   @IsOptional()
   email: string
 
   @ApiProperty({
     description: 'birthday of the user',
   })
-  @Expose()
+  @Expose({ name: 'birthday' })
   @IsOptional()
   birthday: string
 
   @ApiProperty({
     description: 'Phone of the user',
   })
-  @Expose()
+  @Expose({ name: 'phone' })
   @IsOptional()
   phone: string
 
   @ApiProperty({
     description: 'CCCD of the user',
   })
-  @Expose()
+  @Expose({ name: 'cccd' })
   @IsOptional()
   cccd: string
 
   @ApiProperty()
-  @Expose()
+  @Expose({ name: 'role' })
   @IsOptional()
   role: number
 
   @ApiProperty()
-  @Expose()
+  @Expose({ name: 'status' })
   @IsOptional()
   status: number
 }

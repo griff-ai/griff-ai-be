@@ -6,19 +6,19 @@ export class RegisterDto {
   @ApiProperty({
     description: 'Username of user',
   })
-  @Expose()
+  @Expose({ name: 'username' })
   username: string
 
   @ApiProperty({
     description: 'Fullname of user',
   })
-  @Expose()
+  @Expose({ name: 'fullname' })
   fullname: string
 
   @ApiProperty({
     description: 'Password',
   })
-  @Expose()
+  @Expose({ name: 'password' })
   password: string
 
   @ApiProperty({
@@ -32,7 +32,7 @@ export class VerifyRegisterDto {
   @ApiProperty({
     description: 'Token verify register',
   })
-  @Expose()
+  @Expose({ name: 'token' })
   token: string
 }
 
@@ -40,7 +40,7 @@ export class VerifyTokenDto {
   @ApiProperty({
     description: 'Token verify',
   })
-  @Expose()
+  @Expose({ name: 'token' })
   token: string
 }
 
@@ -48,7 +48,7 @@ export class SetPasswordDto {
   @ApiProperty({
     description: 'Password',
   })
-  @Expose()
+  @Expose({ name: 'password' })
   password: string
 
   @ApiProperty({
@@ -62,7 +62,7 @@ export class ForgotPasswordDto {
   @ApiProperty({
     description: 'Username',
   })
-  @Expose()
+  @Expose({ name: 'username' })
   username: string
 }
 
@@ -70,13 +70,13 @@ export class ResetPasswordDto {
   @ApiProperty({
     description: 'Token',
   })
-  @Expose()
+  @Expose({ name: 'token' })
   token: string
 
   @ApiProperty({
     description: 'New Password',
   })
-  @Expose()
+  @Expose({ name: 'password' })
   password: string
 
   @ApiProperty({
@@ -90,13 +90,13 @@ export class ChangePasswordDto {
   @ApiProperty({
     description: 'Old Password',
   })
-  @Expose()
+  @Expose({ name: 'old_password' })
   old_password: string
 
   @ApiProperty({
     description: 'New Password',
   })
-  @Expose()
+  @Expose({ name: 'password' })
   password: string
 
   @ApiProperty({
@@ -110,13 +110,13 @@ export class LoginDto {
   @ApiProperty({
     description: 'Username of user',
   })
-  @Expose()
+  @Expose({ name: 'username' })
   username: string
 
   @ApiProperty({
     description: 'Password',
   })
-  @Expose()
+  @Expose({ name: 'password' })
   password: string
 }
 
@@ -133,30 +133,18 @@ export class UpdateProfileDto {
   @ApiProperty({
     description: 'Fullname of user',
   })
-  @Expose()
+  @Expose({ name: 'fullname' })
   fullname: string
 
   @ApiProperty({
     description: 'Birthday of user',
   })
-  @Expose()
+  @Expose({ name: 'birthday' })
   birthday: string
-
-  @ApiProperty({
-    description: 'Phone of user',
-  })
-  @Expose()
-  phone: string
-
-  @ApiProperty({
-    description: 'Cccd of user',
-  })
-  @Expose()
-  cccd: string
 
   @ApiProperty({
     description: 'Avatar of user',
   })
-  @Expose()
+  @Expose({ name: 'avatar' })
   avatar: string
 }
