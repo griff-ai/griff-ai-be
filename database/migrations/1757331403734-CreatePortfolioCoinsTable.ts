@@ -12,6 +12,8 @@ export class CreatePortfolioCoinsTable1757331403734
             name: 'id',
             type: 'bigint',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'user_id',

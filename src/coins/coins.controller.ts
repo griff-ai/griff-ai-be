@@ -14,12 +14,16 @@ import { ApiTags } from '@nestjs/swagger'
 import { AuthAdminGuard, ItemResponseInterceptor } from '@lib/common'
 import { ListResponseInterceptor } from '@lib/common/interceptors/list-response.interceptor'
 import { CoinsService } from './coins.service'
+import { CoinPriceSyncService } from './coin-price-sync.service'
 import { CreateCoinDto, ListCoinsRequestDto, UpdateCoinDto } from './coins.dto'
 
 @ApiTags('coins')
 @Controller('coins')
 export class CoinsController {
-  constructor(private readonly coinsService: CoinsService) {}
+  constructor(
+    private readonly coinsService: CoinsService,
+    private readonly coinPriceSyncService: CoinPriceSyncService,
+  ) {}
 
   @Get('')
   @UseInterceptors(ListResponseInterceptor)
@@ -38,6 +42,14 @@ export class CoinsController {
   @UseInterceptors(ItemResponseInterceptor)
   async create(@Body() request: CreateCoinDto) {
     return this.coinsService.create(request)
+  }
+
+  @Post('sync')
+  // @UseGuards(AuthAdminGuard)
+  @UseInterceptors(ItemResponseInterceptor)
+  async syncPrices() {
+    await this.coinPriceSyncService.syncNow()
+    return { message: 'Coin price sync completed successfully' }
   }
 
   @Post(':id')

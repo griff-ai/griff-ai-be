@@ -27,6 +27,7 @@ export class CreateCoinsTable1757311352192 implements MigrationInterface {
             name: 'slug',
             type: 'varchar',
             length: '100',
+            isUnique: true,
           },
           {
             name: 'image_url',

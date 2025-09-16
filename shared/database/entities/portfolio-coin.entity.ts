@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Expose } from 'class-transformer'
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('portfolio_coins')
 export class PortfolioCoinEntity {
-  @PrimaryColumn('bigint', { name: 'id' })
+  @PrimaryGeneratedColumn('increment', { name: 'id', type: 'bigint' })
   @ApiProperty()
   @Expose()
   id: number

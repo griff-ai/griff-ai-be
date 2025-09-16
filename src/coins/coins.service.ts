@@ -110,6 +110,24 @@ export class CoinsService {
     return this.coinRepository.delete(parseInt(id))
   }
 
+  async bulkUpsertBySlug(coins: Omit<CreateCoinDto, 'id'>[]) {
+    // Use save with merge for upsert behavior with slug
+    const results = []
+    for (const coinData of coins) {
+      const existingCoin = await this.coinRepository.findOne({ where: { slug: coinData.slug } })
+      if (existingCoin) {
+        // Update existing coin
+        Object.assign(existingCoin, coinData)
+        results.push(await this.coinRepository.save(existingCoin))
+      } else {
+        // Create new coin
+        const newCoin = this.coinRepository.create(coinData)
+        results.push(await this.coinRepository.save(newCoin))
+      }
+    }
+    return results
+  }
+
   async bulkUpsert(coins: CreateCoinDto[]) {
     return this.coinRepository.upsert(coins, ['id'])
   }

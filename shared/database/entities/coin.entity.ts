@@ -19,7 +19,7 @@ export class CoinEntity {
   @Expose()
   name: string
 
-  @Column('varchar', { name: 'slug', length: 100 })
+  @Column('varchar', { name: 'slug', length: 100, unique: true })
   @ApiProperty()
   @Expose()
   slug: string
