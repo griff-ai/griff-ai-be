@@ -4,11 +4,7 @@ import { TransactionEntity } from 'shared/database/entities/transaction.entity'
 import { Repository, Between } from 'typeorm'
 import * as crypto from 'crypto'
 
-import {
-  DEFAULT_PAGINATE_LIMIT,
-  SECURITY_PARKING_DB,
-  ThrowError,
-} from '@lib/common'
+import { DEFAULT_PAGINATE_LIMIT, GRIFF_AI_DB, ThrowError } from '@lib/common'
 import { plainToInstance } from 'class-transformer'
 import {
   CreateTransactionDto,
@@ -19,7 +15,7 @@ import {
 @Injectable()
 export class TransactionsService {
   constructor(
-    @InjectRepository(TransactionEntity, SECURITY_PARKING_DB)
+    @InjectRepository(TransactionEntity, GRIFF_AI_DB)
     protected readonly transactionRepository: Repository<TransactionEntity>,
   ) {}
 

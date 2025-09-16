@@ -1,4 +1,4 @@
-import { getLoggingDatabaseByLevel, SECURITY_PARKING_DB } from '@lib/common'
+import { getLoggingDatabaseByLevel, GRIFF_AI_DB } from '@lib/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
@@ -8,7 +8,7 @@ import { DataSource } from 'typeorm'
 export const databaseProviders = [
   ConfigModule.forFeature(databaseConfig),
   TypeOrmModule.forRootAsync({
-    name: SECURITY_PARKING_DB,
+    name: GRIFF_AI_DB,
     useFactory: (configService: ConfigService) => ({
       type: 'postgres',
       logging: getLoggingDatabaseByLevel(

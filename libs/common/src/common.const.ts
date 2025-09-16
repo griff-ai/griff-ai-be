@@ -14,7 +14,7 @@ export const WEEK_S = DAY_S * 7 // 7 days in seconds
 export const THIRTY_DAYS_MS = DAY_MS * 30 // 30 days in milliseconds
 export const THIRTY_DAYS_S = DAY_S * 30 // 30 days in seconds
 
-export const SECURITY_PARKING_DB = 'SECURITY_PARKING_DB'
+export const GRIFF_AI_DB = 'GRIFF_AI_DB'
 
 export const VALIDATION_ERROR = {
   code: '1000',

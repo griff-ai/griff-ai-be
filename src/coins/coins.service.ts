@@ -3,18 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { CoinEntity } from 'shared/database/entities/coin.entity'
 import { Like, Repository } from 'typeorm'
 
-import {
-  DEFAULT_PAGINATE_LIMIT,
-  SECURITY_PARKING_DB,
-  ThrowError,
-} from '@lib/common'
+import { DEFAULT_PAGINATE_LIMIT, GRIFF_AI_DB, ThrowError } from '@lib/common'
 import { plainToInstance } from 'class-transformer'
 import { CreateCoinDto, ListCoinsRequestDto, UpdateCoinDto } from './coins.dto'
 
 @Injectable()
 export class CoinsService {
   constructor(
-    @InjectRepository(CoinEntity, SECURITY_PARKING_DB)
+    @InjectRepository(CoinEntity, GRIFF_AI_DB)
     protected readonly coinRepository: Repository<CoinEntity>,
   ) {}
 
@@ -65,13 +61,7 @@ export class CoinsService {
 
   async list(listCoinsRequestDto: ListCoinsRequestDto) {
     const query: Record<string, any> = {}
-    const {
-      page,
-      limit,
-      symbol,
-      name,
-      slug,
-    } = listCoinsRequestDto
+    const { page, limit, symbol, name, slug } = listCoinsRequestDto
 
     if (symbol) {
       query['symbol'] = Like(`%${symbol}%`)

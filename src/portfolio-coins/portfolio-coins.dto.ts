@@ -6,12 +6,6 @@ export class CreatePortfolioCoinDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  @Expose({ name: 'id' })
-  id: number
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsNumber()
   @Expose({ name: 'coin_id' })
   coinId: number
 

@@ -19,7 +19,7 @@ import {
   checkPasswordRegex,
   currentMilliTime,
   encryptPassword,
-  SECURITY_PARKING_DB,
+  GRIFF_AI_DB,
   ThrowError,
 } from '@lib/common'
 import { USER_ROLE, USER_STATUS } from '@lib/common/enums'
@@ -31,7 +31,7 @@ export class AuthService {
     private readonly tokenService: TokenService,
     private readonly configService: ConfigService,
 
-    @InjectRepository(UserEntity, SECURITY_PARKING_DB)
+    @InjectRepository(UserEntity, GRIFF_AI_DB)
     protected readonly userRepository: Repository<UserEntity>,
   ) {}
 

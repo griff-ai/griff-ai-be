@@ -3,18 +3,18 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { PortfolioEntity } from 'shared/database/entities/portfolio.entity'
 import { Repository } from 'typeorm'
 
-import {
-  DEFAULT_PAGINATE_LIMIT,
-  SECURITY_PARKING_DB,
-  ThrowError,
-} from '@lib/common'
+import { DEFAULT_PAGINATE_LIMIT, GRIFF_AI_DB, ThrowError } from '@lib/common'
 import { plainToInstance } from 'class-transformer'
-import { CreatePortfolioDto, ListPortfoliosRequestDto, UpdatePortfolioDto } from './portfolios.dto'
+import {
+  CreatePortfolioDto,
+  ListPortfoliosRequestDto,
+  UpdatePortfolioDto,
+} from './portfolios.dto'
 
 @Injectable()
 export class PortfoliosService {
   constructor(
-    @InjectRepository(PortfolioEntity, SECURITY_PARKING_DB)
+    @InjectRepository(PortfolioEntity, GRIFF_AI_DB)
     protected readonly portfolioRepository: Repository<PortfolioEntity>,
   ) {}
 
@@ -83,11 +83,7 @@ export class PortfoliosService {
 
   async list(listPortfoliosRequestDto: ListPortfoliosRequestDto) {
     const query: Record<string, any> = {}
-    const {
-      page,
-      limit,
-      userId,
-    } = listPortfoliosRequestDto
+    const { page, limit, userId } = listPortfoliosRequestDto
 
     if (userId) {
       query['userId'] = userId

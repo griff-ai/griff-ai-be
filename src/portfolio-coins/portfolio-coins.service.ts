@@ -3,18 +3,18 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { PortfolioCoinEntity } from 'shared/database/entities/portfolio-coin.entity'
 import { Repository } from 'typeorm'
 
-import {
-  DEFAULT_PAGINATE_LIMIT,
-  SECURITY_PARKING_DB,
-  ThrowError,
-} from '@lib/common'
+import { DEFAULT_PAGINATE_LIMIT, GRIFF_AI_DB, ThrowError } from '@lib/common'
 import { plainToInstance } from 'class-transformer'
-import { CreatePortfolioCoinDto, ListPortfolioCoinsRequestDto, UpdatePortfolioCoinDto } from './portfolio-coins.dto'
+import {
+  CreatePortfolioCoinDto,
+  ListPortfolioCoinsRequestDto,
+  UpdatePortfolioCoinDto,
+} from './portfolio-coins.dto'
 
 @Injectable()
 export class PortfolioCoinsService {
   constructor(
-    @InjectRepository(PortfolioCoinEntity, SECURITY_PARKING_DB)
+    @InjectRepository(PortfolioCoinEntity, GRIFF_AI_DB)
     protected readonly portfolioCoinRepository: Repository<PortfolioCoinEntity>,
   ) {}
 
@@ -27,12 +27,16 @@ export class PortfolioCoinsService {
       ThrowError('Portfolio coin already exists for this user')
     }
 
-    const newPortfolioCoin = plainToInstance(PortfolioCoinEntity, {
-      ...request,
-      userId,
-    }, {
-      ignoreDecorators: true,
-    })
+    const newPortfolioCoin = plainToInstance(
+      PortfolioCoinEntity,
+      {
+        ...request,
+        userId,
+      },
+      {
+        ignoreDecorators: true,
+      },
+    )
     return this.portfolioCoinRepository.save(newPortfolioCoin)
   }
 
@@ -66,13 +70,12 @@ export class PortfolioCoinsService {
     })
   }
 
-  async list(listPortfolioCoinsRequestDto: ListPortfolioCoinsRequestDto, userId: number) {
+  async list(
+    listPortfolioCoinsRequestDto: ListPortfolioCoinsRequestDto,
+    userId: number,
+  ) {
     const query: Record<string, any> = { userId }
-    const {
-      page,
-      limit,
-      coinId,
-    } = listPortfolioCoinsRequestDto
+    const { page, limit, coinId } = listPortfolioCoinsRequestDto
 
     if (coinId) {
       query['coinId'] = coinId
@@ -114,10 +117,13 @@ export class PortfolioCoinsService {
   }
 
   async bulkUpsert(portfolioCoins: CreatePortfolioCoinDto[], userId: number) {
-    const portfolioCoinsWithUserId = portfolioCoins.map(coin => ({
+    const portfolioCoinsWithUserId = portfolioCoins.map((coin) => ({
       ...coin,
       userId,
     }))
-    return this.portfolioCoinRepository.upsert(portfolioCoinsWithUserId, ['userId', 'coinId'])
+    return this.portfolioCoinRepository.upsert(portfolioCoinsWithUserId, [
+      'userId',
+      'coinId',
+    ])
   }
 }

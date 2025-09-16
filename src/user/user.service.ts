@@ -6,7 +6,7 @@ import { Like, Repository } from 'typeorm'
 import {
   DEFAULT_PAGINATE_LIMIT,
   encryptPassword,
-  SECURITY_PARKING_DB,
+  GRIFF_AI_DB,
   ThrowError,
 } from '@lib/common'
 import { plainToInstance } from 'class-transformer'
@@ -16,7 +16,7 @@ import { ConfigService } from '@nestjs/config'
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity, SECURITY_PARKING_DB)
+    @InjectRepository(UserEntity, GRIFF_AI_DB)
     protected readonly userRepository: Repository<UserEntity>,
     private readonly configService: ConfigService,
   ) {}

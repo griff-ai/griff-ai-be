@@ -14,6 +14,7 @@ import { CoinsModule } from './coins/coins.module'
 import { TransactionsModule } from './transactions/transactions.module'
 import { PortfolioCoinsModule } from './portfolio-coins/portfolio-coins.module'
 import { PortfoliosModule } from './portfolios/portfolios.module'
+import { ScheduleModule } from '@nestjs/schedule'
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { PortfoliosModule } from './portfolios/portfolios.module'
     TransactionsModule,
     PortfolioCoinsModule,
     PortfoliosModule,
+    ScheduleModule.forRoot(),
   ],
   providers: [],
 })
